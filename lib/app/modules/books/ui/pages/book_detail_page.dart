@@ -28,6 +28,7 @@ class BookDetailPage extends StatelessWidget {
   Widget get _info {
     return ListView(
       shrinkWrap: true,
+      physics: const BouncingScrollPhysics(),
       padding: const EdgeInsets.all(16),
       children: [
         Text(
@@ -54,7 +55,7 @@ class BookDetailPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _image,
-        _info,
+        Expanded(child: _info),
       ],
     );
   }

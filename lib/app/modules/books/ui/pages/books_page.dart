@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_book_manager/app/modules/books/ui/components/add_book_dialog.dart';
+import 'package:flutter_book_manager/app/shared/models/book_model.dart';
 import 'package:flutter_book_manager/app/shared/stores/library_store.dart';
 import 'package:flutter_book_manager/app/shared/utils.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -10,6 +12,22 @@ class BooksPage extends StatelessWidget {
   BooksPage({super.key});
 
   final store = Modular.get<LibraryStore>();
+
+  Future<void> addBook(BuildContext context) async {
+    Map<String, dynamic>? bookData = await showDialog(
+      context: context,
+      builder: (_) => AddBookDialog(),
+    );
+    if (bookData != null) {
+      store.createBook(
+        title: bookData['titulo'],
+        author: bookData['autor'],
+        synopsis: bookData['sinopse'],
+        imageUrl: bookData['url'],
+        year: bookData['ano'],
+      );
+    }
+  }
 
   Widget get _list {
     Widget buildCard(int index) {
@@ -112,20 +130,21 @@ class BooksPage extends StatelessWidget {
     );
   }
 
-  Widget get _fab {
+  Widget _fab(BuildContext context) {
     return FloatingActionButton(
       child: const Icon(
         Icons.add,
         color: Colors.white,
       ),
       onPressed: () {
-        store.createBook(
-          title: "O míto de sísifo",
-          author: "Albert Camus",
-          synopsis: "Uma obra filosófica do Absurdismo.",
-          imageUrl: "https://m.media-amazon.com/images/I/71pipdrO4kL.jpg",
-          year: 1942,
-        );
+        addBook(context);
+        // store.createBook(
+        //   title: "O míto de sísifo",
+        //   author: "Albert Camus",
+        //   synopsis: "Uma obra filosófica do Absurdismo.",
+        //   imageUrl: "https://m.media-amazon.com/images/I/71pipdrO4kL.jpg",
+        //   year: 1942,
+        // );
       },
     );
   }
@@ -134,17 +153,17 @@ class BooksPage extends StatelessWidget {
     return CustomBottomNav();
   }
 
-  Widget get _body {
+  Widget _body(BuildContext context) {
     return Scaffold(
       appBar: _appBar,
       body: _list,
-      floatingActionButton: _fab,
+      floatingActionButton: _fab(context),
       bottomNavigationBar: _bottomNav,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return _body;
+    return _body(context);
   }
 }
