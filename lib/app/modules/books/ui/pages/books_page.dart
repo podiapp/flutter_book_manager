@@ -112,9 +112,19 @@ class BooksPage extends StatelessWidget {
         }
 
         return ListView.separated(
-          itemCount: store.books.length,
+          itemCount: store.books.length + 1,
           separatorBuilder: (_, __) => const SizedBox(height: 24),
-          itemBuilder: (_, index) => buildCard(index),
+          itemBuilder: (_, index) {
+            if (index == 0) {
+              return const Text(
+                "Livros",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              );
+            }
+            return buildCard(index - 1);
+          },
           scrollDirection: Axis.vertical,
           padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
           physics: const BouncingScrollPhysics(),

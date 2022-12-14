@@ -8,23 +8,20 @@ class BottomNavStore = _BottomNavStoreBase with _$BottomNavStore;
 
 abstract class _BottomNavStoreBase with Store {
   @observable
-  int index = -1;
+  int index = 0;
 
   @action
-  void changeIndex(int index) => this.index = index;
-
   void onChangedPage(int index) {
+    this.index = index;
     switch (index) {
       case 0:
         if (!isCurrentPage(ProjectRoutes.bookModule)) {
-          changeIndex(index);
-          Modular.to.pushNamed(ProjectRoutes.bookModule);
+          Modular.to.pushReplacementNamed(ProjectRoutes.bookModule);
         }
         break;
       case 1:
         if (!isCurrentPage(ProjectRoutes.clientModule)) {
-          changeIndex(index);
-          Modular.to.pushNamed(ProjectRoutes.clientModule);
+          Modular.to.pushReplacementNamed(ProjectRoutes.clientModule);
         }
         break;
       default:
@@ -33,6 +30,6 @@ abstract class _BottomNavStoreBase with Store {
   }
 
   bool isCurrentPage(String path) {
-    return Modular.to.path.contains(path);
+    return Modular.to.path == path;
   }
 }

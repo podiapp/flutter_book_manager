@@ -38,11 +38,11 @@ mixin _$BottomNavStore on _BottomNavStoreBase, Store {
       ActionController(name: '_BottomNavStoreBase');
 
   @override
-  void changeIndex(int index) {
+  void onChangedPage(int index) {
     final _$actionInfo = _$_BottomNavStoreBaseActionController.startAction(
-        name: '_BottomNavStoreBase.changeIndex');
+        name: '_BottomNavStoreBase.onChangedPage');
     try {
-      return super.changeIndex(index);
+      return super.onChangedPage(index);
     } finally {
       _$_BottomNavStoreBaseActionController.endAction(_$actionInfo);
     }

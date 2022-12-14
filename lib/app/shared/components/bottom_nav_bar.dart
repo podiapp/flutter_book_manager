@@ -28,6 +28,7 @@ class CustomBottomNav extends StatelessWidget {
         ],
         showSelectedLabels: false,
         showUnselectedLabels: false,
+        currentIndex: store.index,
         onTap: store.onChangedPage,
       ),
     );

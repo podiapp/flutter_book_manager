@@ -15,7 +15,15 @@ class AppModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ModuleRoute(ProjectRoutes.bookModule, module: BooksModule()),
-    ModuleRoute(ProjectRoutes.clientModule, module: ClientsModule()),
+    ModuleRoute(
+      ProjectRoutes.bookModule,
+      module: BooksModule(),
+      transition: TransitionType.fadeIn,
+    ),
+    ModuleRoute(
+      ProjectRoutes.clientModule,
+      module: ClientsModule(),
+      transition: TransitionType.fadeIn,
+    ),
   ];
 }
